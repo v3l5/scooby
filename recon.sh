@@ -34,6 +34,7 @@ function check_for_help(){
 
 function prep(){
 
+    #axiom-fleet scooby -i 20
     echo -n "\n${fgYellow}Subdomain Enumeration : Preparing${txReset} "
     local="/opt/recon/subdomain_enum/$domain/raw_output"
     results_local="/opt/recon/subdomain_enum/$domain/results"
