@@ -1,0 +1,6 @@
+[
+    {
+        "command": "/home/op/go/bin/dnsx -w input -r /home/op/lists/resolvers.txt -silent -t 800 -d | tee output",
+        "ext": "txt"
+    }
+]

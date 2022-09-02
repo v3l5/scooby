@@ -1,0 +1,7 @@
+[
+    {
+        "command": "/home/op/go/bin/dnsx -l input -t 200 -wd | tee output",
+        "ext": "txt",
+        "threads": "2"
+    }
+]
