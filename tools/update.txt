@@ -1,1 +1,2 @@
 go install -v github.com/projectdiscovery/nuclei/v2/cmd/nuclei@latest
+go install -v github.com/projectdiscovery/naabu/v2/cmd/naabu@latest

@@ -147,15 +147,18 @@ function permutation_subdomians(){
     
     axiom-scan $local/subdomain_results.txt -m dnsx-wc $domain -o $local/subdomain_perm_active.txt &> /dev/null
 
-    if [ ! $(wc -l < $local/recur1_active.txt) > 100 ]
-        then
-        gotator -sub $local/subdomain_perm_active.txt -perm /opt/recon/lists/perm.txt -depth 1 -numbers 10 -mindup -adv -md -silent > $local/perm_gotator.txt
+    cat $local/subdomain_perm_active.txt | sort -uf > $local/subdomain_perm_active_sorted.txt
+
+    if [ $(wc -l < $local/subdomain_perm_active_sorted.txt) -lt 100 ]
+    
+    then
+        gotator -sub $local/subdomain_perm_active_sorted.txt -perm /opt/recon/lists/perm.txt -depth 1 -numbers 10 -mindup -adv -md -silent > $local/perm_gotator.txt
         
         axiom-scan $local/perm_gotator.txt -m dnsx-wc $domain -o $local/perm_resolved_sd.txt &> /dev/null
         
         cat $local/perm_resolved_sd.txt | anew $local/subdomain_results.txt > $local/perm_resolved_new.txt
         
-        echo -n "${fgRed} --> Discovered $(wc -l <$local/perm_resolved_new.txt) new subdomains"
+        echo -n "${fgRed} --> Discovered $(wc -l < $local/perm_resolved_new.txt) new subdomains"
         echo -n "${fgGreen} --> done"
 
     else
@@ -187,8 +190,9 @@ function subdomain_takeover() {
 
 }
 
-function subdomain_port_scanning() {
+function transfer_files() {
 
+cp -r /opt/recon/subdomain_enum/$domain/ /media/vels/WD_BLACK/BB/$domain
 }
 
 main() {   
@@ -202,6 +206,7 @@ main() {
     permutation_subdomians
     final_resolve
     subdomain_takeover
+    transfer_files
 }
 
 main
